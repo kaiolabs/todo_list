@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/src/core/repositories/db.dart';
 import 'package:todo_list/src/modules/base/controllers/base_controller.dart';
 import 'package:todo_list/src/modules/base/controllers/preferences_theme.dart';
 
@@ -58,8 +59,9 @@ class _TopBarState extends State<TopBar> {
               icon: Icon(
                 value == Brightness.light ? Icons.dark_mode_outlined : Icons.wb_sunny,
               ),
-              onPressed: () {
+              onPressed: () async {
                 PreferencesTheme.toggleTema();
+                await DB.setDarkMode(PreferencesTheme.brightness.value == Brightness.dark);
               },
             ),
           ),
