@@ -35,4 +35,8 @@ class Functions {
         return Icons.check_box_outline_blank;
     }
   }
+
+  static dateExpiration(DateTime date) {
+    return date.difference(DateTime.now()).inDays;
+  }
 }
