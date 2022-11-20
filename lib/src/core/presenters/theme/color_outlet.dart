@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class ColorOutlet {
   static const colorPrimary = Color(0xFF7E37BB);
   static const colorPrimaryLight = Color(0xFFAD54FB);
+  static const colorPrimaryDark = Color(0xFF4F0F8B);
   static const Color colorWhite = Color(0xFFFFFFFF);
   static const Color colorShadow = Color(0x824B4949);
   static const Color colorGrey = Color(0xFF686877);
