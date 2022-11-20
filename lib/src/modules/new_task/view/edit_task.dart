@@ -69,8 +69,8 @@ class _EditTaskViewState extends State<EditTaskView> {
         onWillPop: () async {
           return await alertDialogPattern(
             context,
-            'Come back',
-            'There may be unsaved data you really want to go back?',
+            'Deseja voltar?',
+            'As informações não salvas serão perdidas, deseja continuar?',
             onConfirm: () {
               Modular.to.pop();
               Modular.to.pop();
@@ -97,8 +97,8 @@ class _EditTaskViewState extends State<EditTaskView> {
                             onPressed: () {
                               alertDialogPattern(
                                 context,
-                                'Come back',
-                                'There may be unsaved data you really want to go back?',
+                                'Deseja voltar?',
+                                'As informações não salvas serão perdidas, deseja continuar?',
                                 onConfirm: () {
                                   Modular.to.pop();
                                   Modular.to.pop();
@@ -107,7 +107,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                             },
                           ),
                           const Text(
-                            'New Task',
+                            'Editar tarefa',
                             style: TextStyle(
                               fontSize: SizeOutlet.textSizeSmall2,
                               fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -119,8 +119,8 @@ class _EditTaskViewState extends State<EditTaskView> {
                             onPressed: () {
                               alertDialogPattern(
                                 context,
-                                'Delete Task',
-                                'Are you sure you want to delete this task?',
+                                'Deseja excluir a tarefa?',
+                                'A tarefa será excluída permanentemente, deseja continuar?',
                                 onConfirm: () async {
                                   await DB.deleteTask(widget.task.id!);
                                   updateLists();
@@ -128,7 +128,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                   Modular.to.pop();
                                   snackBarMessenger(
                                     context: context,
-                                    message: 'Task updated successfully',
+                                    message: 'Tarefa excluída com sucesso!',
                                     duration: 3,
                                     color: ColorOutlet.colorPrimaryLight,
                                   );
@@ -162,7 +162,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                         valueListenable: widget.taskController.priorityController,
                                         builder: (context, value, child) {
                                           return ButtonSimple(
-                                            text: 'Priority',
+                                            text: 'Prioridade',
                                             icon: SvgPicture.asset('assets/images/flag.svg',
                                                 width: SizeOutlet.iconSizeDefault, color: ColorOutlet.colorPrimary),
                                             controller: widget.taskController.priorityController,
@@ -177,7 +177,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                       valueListenable: widget.taskController.categoryController,
                                       builder: (context, value, child) {
                                         return ButtonSimple(
-                                          text: 'Category',
+                                          text: 'Categoria',
                                           icon: SvgPicture.asset(
                                             'assets/images/tag.svg',
                                             width: SizeOutlet.iconSizeDefault,
@@ -198,7 +198,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Name',
+                                  'Título',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -208,10 +208,10 @@ class _EditTaskViewState extends State<EditTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: widget.taskController.titleController,
-                                hintText: 'Name task',
+                                hintText: 'Título',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter some text';
+                                    return 'Campo obrigatório';
                                   }
                                   return null;
                                 },
@@ -222,7 +222,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Description',
+                                  'Descrição',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -232,7 +232,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: widget.taskController.descriptionController,
-                                hintText: 'Description',
+                                hintText: 'Descrição',
                               ),
                               const Padding(
                                 padding: EdgeInsets.only(
@@ -240,7 +240,7 @@ class _EditTaskViewState extends State<EditTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Expiration date',
+                                  'Data de expiração',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -250,12 +250,12 @@ class _EditTaskViewState extends State<EditTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: widget.taskController.dateController,
-                                hintText: 'Expiration date',
+                                hintText: 'Data de expiração',
                                 dateMode: true,
                                 suffixIcon: Icons.calendar_today,
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return 'Please enter a date';
+                                    return 'Por favor, insira uma data';
                                   }
                                   return null;
                                 },
