@@ -30,7 +30,7 @@ showCategory({required ValueNotifier<String> categoryController, required BuildC
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     Text(
-                      'Category',
+                      'Categorias',
                       style: TextStyle(
                         fontSize: SizeOutlet.textSizeSmall2,
                         fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -58,27 +58,27 @@ showCategory({required ValueNotifier<String> categoryController, required BuildC
                   TagPattern(
                     color: PreferencesTheme.brightness.value == Brightness.light ? Colors.white : Colors.grey[900]!,
                     icon: const Icon(Icons.check_box_outline_blank, color: ColorOutlet.colorPrimary),
-                    title: 'Common',
+                    title: 'Comum',
                     onPressed: () {
-                      categoryController.value = 'Common';
+                      categoryController.value = 'Comum';
                       Modular.to.pop();
                     },
                   ),
                   TagPattern(
                     color: PreferencesTheme.brightness.value == Brightness.light ? Colors.white : Colors.grey[900]!,
                     icon: const Icon(Icons.lunch_dining_outlined, color: ColorOutlet.colorPrimary),
-                    title: 'Grocery',
+                    title: 'Mercado',
                     onPressed: () {
-                      categoryController.value = 'Grocery';
+                      categoryController.value = 'Mercado';
                       Modular.to.pop();
                     },
                   ),
                   TagPattern(
                     color: PreferencesTheme.brightness.value == Brightness.light ? Colors.white : Colors.grey[900]!,
                     icon: const Icon(Icons.work_outline, color: ColorOutlet.colorPrimary),
-                    title: 'Work',
+                    title: 'Trabalho',
                     onPressed: () {
-                      categoryController.value = 'Work';
+                      categoryController.value = 'Trabalho';
                       Modular.to.pop();
                     },
                   ),
@@ -103,9 +103,9 @@ showCategory({required ValueNotifier<String> categoryController, required BuildC
                   TagPattern(
                     color: PreferencesTheme.brightness.value == Brightness.light ? Colors.white : Colors.grey[900]!,
                     icon: const Icon(Icons.school_outlined, color: ColorOutlet.colorPrimary),
-                    title: 'School',
+                    title: 'Estudo',
                     onPressed: () {
-                      categoryController.value = 'School';
+                      categoryController.value = 'Estudo';
                       Modular.to.pop();
                     },
                   ),
