@@ -34,7 +34,7 @@ class _NewTaskViewState extends State<NewTaskView> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   ValueNotifier<String> priorityController = ValueNotifier<String>('0');
-  ValueNotifier<String> categoryController = ValueNotifier<String>('Common');
+  ValueNotifier<String> categoryController = ValueNotifier<String>('Comum');
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +46,14 @@ class _NewTaskViewState extends State<NewTaskView> {
           bottom: SizeOutlet.paddingSizeDefault,
         ),
         child: ButtonPattern(
-          lebel: 'Save',
+          label: 'Salvar',
           onPressed: () {
             if (formKeyNewTask.currentState!.validate()) {
               DB.taskChecker(titleController.text).then((value) async {
                 if (value) {
                   snackBarMessenger(
                     context: context,
-                    message: 'Task already exists',
+                    message: 'Já existe uma tarefa com esse nome',
                     duration: 3,
                     color: ColorOutlet.colorPrimaryLight,
                   );
@@ -73,9 +73,10 @@ class _NewTaskViewState extends State<NewTaskView> {
                     widget.baseController.tasksAll.value = value;
                   });
                   Modular.to.pop();
+                  setState(() {});
                   snackBarMessenger(
                     context: context,
-                    message: 'Task created successfully',
+                    message: 'Tarefa cadastrada com sucesso',
                     duration: 3,
                     color: ColorOutlet.colorPrimaryLight,
                   );
@@ -89,8 +90,8 @@ class _NewTaskViewState extends State<NewTaskView> {
         onWillPop: () async {
           return await alertDialogPattern(
             context,
-            'Come back',
-            'There may be unsaved data you really want to go back?',
+            'Deseja voltar?',
+            'As informações não salvas serão perdidas, deseja continuar?',
             onConfirm: () {
               Modular.to.pop();
               Modular.to.pop();
@@ -117,8 +118,8 @@ class _NewTaskViewState extends State<NewTaskView> {
                             onPressed: () {
                               alertDialogPattern(
                                 context,
-                                'Come back',
-                                'There may be unsaved data you really want to go back?',
+                                'Deseja voltar?',
+                                'As informações não salvas serão perdidas, deseja continuar?',
                                 onConfirm: () {
                                   Modular.to.pop();
                                   Modular.to.pop();
@@ -127,7 +128,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                             },
                           ),
                           const Text(
-                            'New Task',
+                            'Nova tarefa',
                             style: TextStyle(
                               fontSize: SizeOutlet.textSizeSmall2,
                               fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -163,7 +164,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                                         valueListenable: priorityController,
                                         builder: (context, value, child) {
                                           return ButtonSimple(
-                                            text: 'Priority',
+                                            text: 'Prioridade',
                                             icon: SvgPicture.asset(
                                               'assets/images/flag.svg',
                                               width: SizeOutlet.iconSizeDefault,
@@ -181,7 +182,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                                       valueListenable: categoryController,
                                       builder: (context, value, child) {
                                         return ButtonSimple(
-                                          text: 'Category',
+                                          text: 'Categoria',
                                           icon: SvgPicture.asset(
                                             'assets/images/tag.svg',
                                             width: SizeOutlet.iconSizeDefault,
@@ -202,7 +203,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Name',
+                                  'Título',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -212,7 +213,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: titleController,
-                                hintText: 'Name task',
+                                hintText: 'Nome da tarefa',
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter some text';
@@ -226,7 +227,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Description',
+                                  'Descrição',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -236,7 +237,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: descriptionController,
-                                hintText: 'Description',
+                                hintText: 'Descrição da tarefa',
                               ),
                               const Padding(
                                 padding: EdgeInsets.only(
@@ -244,7 +245,7 @@ class _NewTaskViewState extends State<NewTaskView> {
                                   bottom: SizeOutlet.paddingSizeSmall,
                                 ),
                                 child: Text(
-                                  'Expiration date',
+                                  'Data expiração da tarefa',
                                   style: TextStyle(
                                     fontSize: SizeOutlet.textSizeMicro2,
                                     fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -254,12 +255,12 @@ class _NewTaskViewState extends State<NewTaskView> {
                               InputField(
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: dateController,
-                                hintText: 'Expiration date',
+                                hintText: 'Data de expiração',
                                 dateMode: true,
                                 suffixIcon: Icons.calendar_today,
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return 'Please enter a date';
+                                    return 'Por favor, insira uma data';
                                   }
                                   return null;
                                 },
