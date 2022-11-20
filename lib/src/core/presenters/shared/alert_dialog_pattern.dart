@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:todo_list/src/core/presenters/theme/color_outlet.dart';
 import 'package:todo_list/src/core/presenters/theme/size_outlet.dart';
 
 import '../theme/font_family_outlet.dart';
 
-alertDialogPattern(context, String title, String content,
-    {bool? exitMode = false, bool confirmMode = false, ValueNotifier<bool>? isConfirmed, Function()? onConfirm}) {
+alertDialogPattern(
+  context,
+  String title,
+  String content, {
+  bool? exitMode = false,
+  bool confirmMode = false,
+  ValueNotifier<bool>? isConfirmed,
+  Function()? onConfirm,
+  bool? markdownMode = false,
+}) {
   return showGeneralDialog(
     context: context,
     pageBuilder: (context, animation, secondaryAnimation) {
@@ -29,10 +38,45 @@ alertDialogPattern(context, String title, String content,
               fontFamily: FontFamilyOutlet.defaultFontFamilyMedium,
             ),
           ),
-          content: Text(
-            content,
-            style: const TextStyle(
-              fontFamily: FontFamilyOutlet.defaultFontFamilyRegular,
+          content: Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.6,
+              maxWidth: MediaQuery.of(context).size.width * 0.8,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Visibility(
+                  visible: !markdownMode!,
+                  child: Text(
+                    content,
+                    style: const TextStyle(
+                      fontFamily: 'TTNorms_Regular',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: Visibility(
+                    visible: markdownMode,
+                    child: Markdown(
+                      padding: const EdgeInsets.all(0),
+                      physics: const BouncingScrollPhysics(),
+                      softLineBreak: true,
+                      data: content,
+                      styleSheet: MarkdownStyleSheet(
+                        p: const TextStyle(
+                          fontFamily: 'TTNorms_Regular',
+                        ),
+                        h2: const TextStyle(
+                          fontFamily: 'TTNorms_Medium',
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           actions: [
