@@ -8,7 +8,15 @@ class CreateTables {
     }
   }
 
+  static settings() async {
+    final userDados = await DB.tableChecker('SETTINGS');
+    if (userDados == false) {
+      await DB.createTableSettings();
+    }
+  }
+
   static createTables() async {
     await taks();
+    await settings();
   }
 }
