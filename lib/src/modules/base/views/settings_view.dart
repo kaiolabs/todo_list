@@ -46,14 +46,13 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
               ),
               ButtonPattern(
-                lebel: 'Full Backup',
+                label: 'Full Backup',
                 onPressed: () {
                   alertDialogPattern(
                     context,
                     'Full Backup',
                     'Are you sure you want to backup all your data?',
                     onConfirm: () async {
-                      print('Full Backup');
                       Modular.to.pop();
                       await DB.backupDatabase();
                     },
