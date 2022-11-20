@@ -23,20 +23,14 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
-  @override
-  void initState() {
-    super.initState();
-    DB.getTaskFavorite().then((value) {
-      widget.controller.tasksFavorite.value = value;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TopBar(
-          title: 'Favorite Tasks',
+          title: 'Tarefas favoritas',
           filterPressed: () {
             filter(
               context: context,
@@ -58,7 +52,7 @@ class _FavoriteViewState extends State<FavoriteView> {
             children: [
               InputField(
                 controller: widget.controller.controllerSearcHome,
-                label: 'Search',
+                label: 'Pesquisar',
                 onChanged: (value) {
                   widget.controller.searchTaskAll();
                 },
@@ -83,6 +77,10 @@ class _FavoriteViewState extends State<FavoriteView> {
                               category: widget.controller.tasksFavorite.value[index].category,
                               status: widget.controller.tasksFavorite.value[index].status,
                               baseController: widget.controller,
+                              isFavorited: ValueNotifier<bool>(widget.controller.tasksFavorite.value[index].favorite),
+                              onTapFavorited: () async {
+                                widget.controller.tasksFavorite.value = await DB.getTaskFavorite();
+                              },
                               onTap: () async {
                                 await Modular.to.push(
                                   MaterialPageRoute(
