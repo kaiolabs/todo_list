@@ -25,7 +25,7 @@ filter({
           borderRadius: BorderRadius.circular(SizeOutlet.borderRadiusSizeMedium),
         ),
         title: const Text(
-          'Filter',
+          'Filtrar por',
           style: TextStyle(
             fontFamily: FontFamilyOutlet.defaultFontFamilyMedium,
           ),
@@ -41,7 +41,7 @@ filter({
                 builder: (context, value, child) => Padding(
                   padding: const EdgeInsets.only(bottom: SizeOutlet.paddingSizeDefault, top: SizeOutlet.paddingSizeSmall),
                   child: ButtonPattern(
-                    lebel: 'Priority  [ ${controllerDropDownPriority.value} ]',
+                    label: 'Prioridade  ${controllerDropDownPriority.value}',
                     onPressed: () {
                       showPriority(
                         priorityController: controllerDropDownPriority,
@@ -55,7 +55,7 @@ filter({
               ValueListenableBuilder(
                 valueListenable: controllerDropDownCategory,
                 builder: (context, value, child) => ButtonPattern(
-                  lebel: 'Category  [ ${controllerDropDownCategory.value} ]',
+                  label: 'Categoria  ${controllerDropDownCategory.value}',
                   onPressed: () {
                     showCategory(
                       categoryController: controllerDropDownCategory,
@@ -76,7 +76,7 @@ filter({
                 width: MediaQuery.of(context).size.width * 0.32,
                 height: 50,
                 child: ButtonPatternOut(
-                  lebel: 'Cancel',
+                  lebel: 'Cancelar',
                   onPressed: () {
                     Modular.to.pop();
                   },
@@ -86,7 +86,7 @@ filter({
                 width: MediaQuery.of(context).size.width * 0.32,
                 height: 50,
                 child: ButtonPattern(
-                  lebel: 'Apply',
+                  label: 'Aplicar',
                   onPressed: () {
                     onPressedFilterApply();
                     Modular.to.pop();
