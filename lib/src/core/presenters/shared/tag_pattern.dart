@@ -20,8 +20,8 @@ class TagPattern extends StatelessWidget {
         borderRadius: BorderRadius.circular(SizeOutlet.borderRadiusSizeSmall),
         onTap: onPressed ?? () {},
         child: Container(
-          width: 75,
-          height: 75,
+          width: 80,
+          height: 80,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(SizeOutlet.borderRadiusSizeSmall),
@@ -44,7 +44,7 @@ class TagPattern extends StatelessWidget {
                 Visibility(
                   visible: title.isNotEmpty,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: SizeOutlet.paddingSizeSmall),
+                    padding: const EdgeInsets.only(top: SizeOutlet.paddingSizeMicro),
                     child: Text(
                       title,
                       style: TextStyle(
