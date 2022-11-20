@@ -35,40 +35,40 @@ class PatternBottomNavigationBar extends StatelessWidget {
                           children: [
                             IconBottomBar(
                               iconButton: Icons.home_outlined,
-                              lebel: 'Home',
+                              lebel: 'Tarefas',
                               isSelected: controller.selectedIndex.value == 0,
                               onTap: () {
                                 controller.selectedIndex.value = 0;
-                                controller.pageController.jumpToPage(0);
+                                controller.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                               },
                             ),
                             IconBottomBar(
                               iconButton: Icons.library_add_check_outlined,
-                              lebel: 'Done',
+                              lebel: 'Concluídas',
                               isSelected: controller.selectedIndex.value == 1,
                               onTap: () {
                                 controller.selectedIndex.value = 1;
-                                controller.pageController.jumpToPage(1);
+                                controller.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                               },
                             ),
                             IconBottomBar(
                               iconButton: Icons.favorite_border_outlined,
-                              lebel: 'Favorites',
+                              lebel: 'Favoritas',
                               isSelected: controller.selectedIndex.value == 2,
                               onTap: () {
                                 controller.selectedIndex.value = 2;
-                                controller.pageController.jumpToPage(2);
+                                controller.pageController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                               },
                             ),
-                            IconBottomBar(
-                              iconButton: Icons.settings_outlined,
-                              lebel: 'Settings',
-                              isSelected: controller.selectedIndex.value == 3,
-                              onTap: () {
-                                controller.selectedIndex.value = 3;
-                                controller.pageController.jumpToPage(3);
-                              },
-                            ),
+                            // IconBottomBar(
+                            //   iconButton: Icons.settings_outlined,
+                            //   lebel: 'Settings',
+                            //   isSelected: controller.selectedIndex.value == 3,
+                            //   onTap: () {
+                            //     controller.selectedIndex.value = 3;
+                            //     controller.pageController.animateToPage(3, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+                            //   },
+                            // ),
                           ],
                         ),
                       );

@@ -10,6 +10,7 @@ class BaseController extends ChangeNotifier {
   ValueNotifier<List<Task>> tasksAll = ValueNotifier<List<Task>>([]);
   ValueNotifier<List<Task>> tasksDone = ValueNotifier<List<Task>>([]);
   ValueNotifier<List<Task>> tasksFavorite = ValueNotifier<List<Task>>([]);
+
   TextEditingController controllerSearcHome = TextEditingController();
   TextEditingController controllerSearcDone = TextEditingController();
   TextEditingController controllerSearcFavorite = TextEditingController();
