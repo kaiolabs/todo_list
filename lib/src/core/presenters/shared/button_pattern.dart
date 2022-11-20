@@ -3,14 +3,14 @@ import 'package:todo_list/src/core/presenters/theme/color_outlet.dart';
 import 'package:todo_list/src/core/presenters/theme/size_outlet.dart';
 
 class ButtonPattern extends StatelessWidget {
-  final String lebel;
+  final String label;
   final Color? color;
   final Color? textColor;
   final String? fontFamily;
   final Function()? onPressed;
   const ButtonPattern({
     super.key,
-    required this.lebel,
+    required this.label,
     required this.onPressed,
     this.color = ColorOutlet.colorPrimary,
     this.textColor = Colors.white,
@@ -31,7 +31,7 @@ class ButtonPattern extends StatelessWidget {
           onTap: onPressed ?? () {},
           child: Center(
             child: Text(
-              lebel,
+              label,
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'TTNorms_Medium',

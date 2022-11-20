@@ -19,6 +19,8 @@ class CardTask extends StatefulWidget {
   final String status;
   final BaseController baseController;
   final Function()? onTap;
+  final Function()? onTapFavorited;
+  final ValueNotifier<bool> isFavorited;
   const CardTask(
       {super.key,
       required this.title,
@@ -29,7 +31,9 @@ class CardTask extends StatefulWidget {
       required this.onTap,
       required this.status,
       required this.id,
-      required this.baseController});
+      required this.baseController,
+      this.onTapFavorited,
+      required this.isFavorited});
 
   @override
   State<CardTask> createState() => _CardTaskState();
@@ -37,7 +41,6 @@ class CardTask extends StatefulWidget {
 
 class _CardTaskState extends State<CardTask> {
   Color color = ColorOutlet.colorCardGreen;
-  ValueNotifier<bool> isFavorited = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -53,8 +56,8 @@ class _CardTaskState extends State<CardTask> {
     } else {
       color = ColorOutlet.colorCardGreen;
     }
-    DB.checkFavorite(widget.id).then((value) {
-      isFavorited.value = value;
+    DB.checkFavorite(widget.title).then((value) {
+      widget.isFavorited.value = value;
     });
   }
 
@@ -104,17 +107,12 @@ class _CardTaskState extends State<CardTask> {
                                   ),
                                 ),
                                 FavoritedButton(
-                                  isFavorited: isFavorited,
+                                  isFavorited: widget.isFavorited,
                                   size: SizeOutlet.iconSizeDefault,
                                   onTap: () async {
-                                    isFavorited.value = !isFavorited.value;
-                                    DB.setFavorite(
-                                      id: widget.id,
-                                      favorite: isFavorited.value,
-                                    );
-                                    DB.getTaskFavorite().then((value) {
-                                      widget.baseController.tasksFavorite.value = value;
-                                    });
+                                    widget.isFavorited.value = !widget.isFavorited.value;
+                                    await DB.setFavorite(title: widget.title.toLowerCase(), favorite: widget.isFavorited.value);
+                                    widget.onTapFavorited?.call();
                                   },
                                 )
                               ],
@@ -158,7 +156,11 @@ class _CardTaskState extends State<CardTask> {
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.all(Radius.circular(SizeOutlet.borderRadiusSizeSmall)),
-                                      border: Border.fromBorderSide(BorderSide(color: color)),
+                                      border: Border.fromBorderSide(
+                                        BorderSide(
+                                          color: color,
+                                        ),
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -168,9 +170,9 @@ class _CardTaskState extends State<CardTask> {
                                       child: Text(
                                         (widget.status != 'done')
                                             ? (int.parse(widget.date) > 0)
-                                                ? 'Expires in ${widget.date} days'
-                                                : 'Expired in ${widget.date.replaceAll('-', '')} days'
-                                            : 'Task completed',
+                                                ? 'Expira em ${widget.date} dias'
+                                                : 'Expirou há ${widget.date.replaceAll('-', '')} dias'
+                                            : 'Tarefa concluída',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: color,
@@ -199,29 +201,18 @@ class _CardTaskState extends State<CardTask> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(bottom: SizeOutlet.paddingSizeSmall),
-                                          decoration: const BoxDecoration(
-                                            border: Border(
-                                              bottom: BorderSide(
-                                                color: ColorOutlet.colorPrimaryLight,
-                                                width: 1,
-                                              ),
-                                            ),
-                                          ),
-                                          child: const Text(
-                                            'Description',
-                                            style: TextStyle(
-                                              color: ColorOutlet.colorPrimaryLight,
-                                              fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
-                                              fontSize: SizeOutlet.textSizeMicro1,
-                                            ),
+                                        const Text(
+                                          'Descrição',
+                                          style: TextStyle(
+                                            color: ColorOutlet.colorPrimaryLight,
+                                            fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
+                                            fontSize: SizeOutlet.textSizeMicro1,
                                           ),
                                         ),
                                         Text(
                                           widget.description,
                                           softWrap: true,
-                                          maxLines: 1,
+                                          maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                             color: ColorOutlet.colorPrimaryLight,
