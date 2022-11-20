@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:todo_list/src/core/infra/tables/table_settings.dart';
 import 'package:todo_list/src/core/infra/tables/table_task.dart';
 import 'package:todo_list/src/modules/new_task/models/task.dart';
 
@@ -51,6 +52,74 @@ class DB {
 
   static Future<void> createTableTask() async {
     await TabelaTask.createTable(db!);
+  }
+
+  static Future<void> createTableSettings() async {
+    await TabelaSettings.createTable(db!);
+  }
+
+  // get DARKMODE  from SETTINGS
+  static Future<bool> getDarkMode() async {
+    var table = await db!.query('SETTINGS', columns: ['DARKMODE']);
+    return table[0]['DARKMODE'] == 1 ? true : false;
+  }
+
+  // set DARKMODE  from SETTINGS
+  static Future<void> setDarkMode(bool darkMode) async {
+    await db!.update(
+      'SETTINGS',
+      {'DARKMODE': darkMode ? 1 : 0},
+      where: 'ID = ?',
+      whereArgs: [1],
+    );
+  }
+
+  // init SETTINGS
+  static Future<void> initSettings() async {
+    // verifica quntos registros tem na tabela SETTINGS
+    var table = await db!.query('SETTINGS');
+    // se não tiver nenhum registro, insere um registro com os valores padrões
+    if (table.isEmpty) {
+      await db!.insert(
+        'SETTINGS',
+        {
+          'ID': 1,
+          'TERMS': 0,
+          'LOGGED': 0,
+          'DARKMODE': 0,
+          'USERNAME': '',
+        },
+      );
+    }
+  }
+
+  // get LOGGED from SETTINGS
+
+  static Future<bool> getLogged() async {
+    var table = await db!.query('SETTINGS', columns: ['LOGGED']);
+    return table[0]['LOGGED'] == 1 ? true : false;
+  }
+
+  // set LOGGED from SETTINGS
+
+  static Future<void> setLogged(bool logged) async {
+    await db!.update(
+      'SETTINGS',
+      {'LOGGED': logged ? 1 : 0},
+      where: 'ID = ?',
+      whereArgs: [1],
+    );
+  }
+
+  // set TERMS and USERNAME from SETTINGS
+
+  static Future<void> setTermsAndUsername(bool terms, String username) async {
+    await db!.update(
+      'SETTINGS',
+      {'TERMS': terms ? 1 : 0, 'USERNAME': username},
+      where: 'ID = ?',
+      whereArgs: [1],
+    );
   }
 
   // verificar se tabela existe
@@ -105,18 +174,18 @@ class DB {
   }
 
   // set favorite
-  static Future<void> setFavorite({required int id, required bool favorite}) async {
+  static Future<void> setFavorite({required String title, required bool favorite}) async {
     await db!.update(
       'TASKS',
-      {'FAVORITE': favorite},
-      where: "ID = $id",
+      {'FAVORITE': favorite ? 1 : 0},
+      where: 'TITLE = ?',
+      whereArgs: [title],
     );
-    print('favorito: $favorite');
   }
 
   // chck favorite
-  static Future<bool> checkFavorite(int id) async {
-    var task = await db!.rawQuery("SELECT * FROM TASKS WHERE ID = $id AND FAVORITE = '1'");
+  static Future<bool> checkFavorite(String title) async {
+    var task = await db!.rawQuery("SELECT * FROM TASKS WHERE TITLE = '${title.toLowerCase()}' AND FAVORITE = '1'");
     return task.isNotEmpty; // retorna true se a tarefa existe
   }
 
