@@ -7,7 +7,7 @@ class Task {
   String dateCreation;
   String priority;
   String category;
-
+  bool favorite;
   Task({
     this.id,
     this.title = '',
@@ -17,6 +17,7 @@ class Task {
     this.dateCreation = '',
     this.priority = '',
     this.category = '',
+    this.favorite = false,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -28,6 +29,7 @@ class Task {
         dateCreation: json["DATECREATION"],
         priority: json["PRIORITY"],
         category: json["CATEGORY"],
+        favorite: json["FAVORITE"] == 1 ? true : false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +41,6 @@ class Task {
         "DATECREATION": dateCreation,
         "PRIORITY": priority,
         "CATEGORY": category,
+        "FAVORITE": favorite ? 1 : 0,
       };
 }
