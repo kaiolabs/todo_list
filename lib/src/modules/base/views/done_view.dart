@@ -23,6 +23,13 @@ class DoneView extends StatefulWidget {
 }
 
 class _DoneViewState extends State<DoneView> {
+  @override
+  void initState() {
+    super.initState();
+    DB.getTasksDone().then((value) {
+      widget.controller.tasksDone.value = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

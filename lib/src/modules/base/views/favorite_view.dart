@@ -23,7 +23,13 @@ class FavoriteView extends StatefulWidget {
 }
 
 class _FavoriteViewState extends State<FavoriteView> {
-
+  @override
+  void initState() {
+    super.initState();
+    DB.getTaskFavorite().then((value) {
+      widget.controller.tasksFavorite.value = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
