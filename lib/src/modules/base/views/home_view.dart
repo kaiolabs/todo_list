@@ -4,7 +4,6 @@ import 'package:todo_list/src/core/presenters/functions/functions.dart';
 import 'package:todo_list/src/core/presenters/shared/card_task.dart';
 import 'package:todo_list/src/core/presenters/shared/filter.dart';
 import 'package:todo_list/src/core/presenters/shared/not_task.dart';
-import 'package:todo_list/src/core/repositories/db.dart';
 import 'package:todo_list/src/modules/base/controllers/base_controller.dart';
 import 'package:todo_list/src/modules/base/views/components/top_bar.dart';
 import 'package:todo_list/src/modules/new_task/controller/task_controller.dart';
@@ -24,19 +23,11 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   @override
-  void initState() {
-    super.initState();
-    DB.getTasks().then((value) {
-      widget.controller.tasksAll.value = value;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TopBar(
-          title: 'Home',
+          title: 'Tarefas',
           filterPressed: () {
             filter(
               context: context,
@@ -58,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
               InputField(
                 controller: widget.controller.controllerSearcHome,
-                label: 'Search',
+                label: 'Pesquisar',
                 onChanged: (value) {
                   widget.controller.searchTaskAll();
                 },
@@ -83,6 +74,7 @@ class _HomeViewState extends State<HomeView> {
                               category: widget.controller.tasksAll.value[index].category,
                               status: widget.controller.tasksAll.value[index].status,
                               baseController: widget.controller,
+                              isFavorited: ValueNotifier<bool>(widget.controller.tasksAll.value[index].favorite),
                               onTap: () async {
                                 await Modular.to.push(
                                   MaterialPageRoute(
