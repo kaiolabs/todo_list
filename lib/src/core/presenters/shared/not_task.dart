@@ -19,7 +19,7 @@ class NotTask extends StatelessWidget {
             width: SizeOutlet.imageSizeMassive,
           ),
           const Text(
-            'What do you want to do today?',
+            'O que você quer fazer hoje?',
             style: TextStyle(
               fontSize: SizeOutlet.textSizeSmall1,
               fontFamily: FontFamilyOutlet.defaultFontFamilyLight,
@@ -28,7 +28,8 @@ class NotTask extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(SizeOutlet.paddingSizeSmall),
             child: Text(
-              'Tap + to add your tasks',
+              textAlign: TextAlign.center,
+              'Toque em + para adicionar\n suas tarefas',
               style: TextStyle(
                 color: ColorOutlet.colorPrimaryLight,
                 fontSize: SizeOutlet.textSizeMicro2,
