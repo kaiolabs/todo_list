@@ -20,6 +20,7 @@ abstract class SizeOutlet {
 
   // Text Size
   static const double textSizeBase = 8;
+  static const double textSizeMicro0 = 10;
   static const double textSizeMicro1 = 16;
   static const double textSizeMicro2 = 18;
   static const double textSizeSmall1 = 20;
@@ -29,6 +30,7 @@ abstract class SizeOutlet {
   static const double textSizeLarge = 48;
   static const double textSizeExtraLarge = 64;
   static const double textSizeHuge = 72;
+  
   static const double textSizeMassive = 256;
 
   // Icon Size
@@ -43,6 +45,7 @@ abstract class SizeOutlet {
 
   // Padding Size
   static const double paddingSizeMicro = 5;
+  static const double paddingSizeMicro2 = 8;
   static const double paddingSizeSmall = 10;
   static const double paddingSizeDefault = 15;
   static const double paddingSizeMedium = 20;
