@@ -51,7 +51,7 @@ class EditTaskBottomBar extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.45,
             child: ButtonPatternOut(
-              lebel: 'Done task',
+              lebel: 'Concluir tarefa',
               onPressed: () {
                 if (formKeyEdit.currentState!.validate()) {
                   DB.taskChecker(taskController.titleController.text).then((value) {
@@ -59,7 +59,7 @@ class EditTaskBottomBar extends StatelessWidget {
                       if (value && valueIdByTitle != task.id) {
                         snackBarMessenger(
                           context: context,
-                          message: 'Task already exists',
+                          message: 'Tarefa já cadastrada',
                           duration: 2,
                           color: ColorOutlet.colorPrimaryLight,
                         );
@@ -80,7 +80,7 @@ class EditTaskBottomBar extends StatelessWidget {
                         Modular.to.pop();
                         snackBarMessenger(
                           context: context,
-                          message: 'Task completed successfully',
+                          message: 'Tarefa concluída com sucesso',
                           duration: 3,
                           color: ColorOutlet.colorPrimaryLight,
                         );
@@ -94,7 +94,7 @@ class EditTaskBottomBar extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.45,
             child: ButtonPattern(
-              lebel: 'Save',
+              label: 'Salvar',
               onPressed: () async {
                 if (formKeyEdit.currentState!.validate()) {
                   DB.taskChecker(taskController.titleController.text).then((value) {
@@ -102,7 +102,7 @@ class EditTaskBottomBar extends StatelessWidget {
                       if (value && valueIdByTitle != task.id) {
                         snackBarMessenger(
                           context: context,
-                          message: 'Task already exists',
+                          message: 'Tarefa já existe',
                           duration: 2,
                           color: ColorOutlet.colorPrimaryLight,
                         );
@@ -123,7 +123,7 @@ class EditTaskBottomBar extends StatelessWidget {
                         Modular.to.pop();
                         snackBarMessenger(
                           context: context,
-                          message: 'Task updated successfully',
+                          message: 'Tarefa atualizada com sucesso',
                           duration: 3,
                           color: ColorOutlet.colorPrimaryLight,
                         );
