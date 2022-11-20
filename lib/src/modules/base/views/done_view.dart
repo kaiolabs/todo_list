@@ -23,20 +23,13 @@ class DoneView extends StatefulWidget {
 }
 
 class _DoneViewState extends State<DoneView> {
-  @override
-  void initState() {
-    super.initState();
-    DB.getTasksDone().then((value) {
-      widget.controller.tasksDone.value = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TopBar(
-          title: 'Done Tasks',
+          title: 'Tarefas concluídas',
           filterPressed: () {
             filter(
               context: context,
@@ -58,7 +51,7 @@ class _DoneViewState extends State<DoneView> {
             children: [
               InputField(
                 controller: widget.controller.controllerSearcDone,
-                label: 'Search',
+                label: 'Pesquisar',
                 onChanged: (value) {
                   widget.controller.searchTaskDone();
                 },
@@ -83,6 +76,7 @@ class _DoneViewState extends State<DoneView> {
                               category: widget.controller.tasksDone.value[index].category,
                               status: widget.controller.tasksDone.value[index].status,
                               baseController: widget.controller,
+                              isFavorited: ValueNotifier<bool>(widget.controller.tasksDone.value[index].favorite),
                               onTap: () {
                                 Modular.to.push(
                                   MaterialPageRoute(
